@@ -361,11 +361,12 @@ class NouvelleEquipe extends StatelessWidget {
                   //
                   Loader.loading();
                   /**
-                   * public String nom;
+                  nom;
+    public String abrev;
     public String province;
     public byte[] logo;
     public String dateCreation;
-    public String division;
+    public String division
                    */
                   //
                   Map equipe = {

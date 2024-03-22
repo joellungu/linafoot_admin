@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:linafoot_admin/utils/requete.dart';
 
-class ArbitreController extends GetxController with StateMixin<List> {
+class AgentsController extends GetxController with StateMixin<List> {
   //
   Requete requete = Requete();
   //
-  Future<void> getAllArbitre() async {
+  Future<void> getAllAgents() async {
     //
     change([], status: RxStatus.loading());
     //
-    Response response = await requete.getE("arbitre/All");
+    Response response = await requete.getE("agent/all");
     //
     if (response.isOk) {
       print("response: ${response.statusCode}");
@@ -26,30 +26,9 @@ class ArbitreController extends GetxController with StateMixin<List> {
   }
 
   //
-  Future<void> updateEquipe(Map equipe) async {
+  Future<List> getAllStades2() async {
     //
-    Response response = await requete.putE("arbitre", equipe);
-    //
-    if (response.isOk) {
-      //
-      print("rep: ${response.body}");
-      Get.back();
-      getAllArbitre();
-      Get.snackbar("Succès", "Mise à jour éffectué",
-          backgroundColor: Colors.green);
-    } else {
-      //
-      Get.back();
-      getAllArbitre();
-      Get.snackbar("Oups erreur",
-          "Une erreur lors de la Mise à jour, code: ${response.statusCode}");
-    }
-  }
-
-  Future<List> getAllArbitre2() async {
-    //
-    //
-    Response response = await requete.getE("arbitre/All");
+    Response response = await requete.getE("agent/all");
     //
     if (response.isOk) {
       print("response: ${response.statusCode}");
@@ -65,39 +44,43 @@ class ArbitreController extends GetxController with StateMixin<List> {
   }
 
   //
-  Future<void> saveCommissaire(Map equipe) async {
+  Future<void> saveAgent(Map equipe) async {
     //
-    Response response = await requete.postE("arbitre", equipe);
+    Response response = await requete.postE("agent", equipe);
     //
     if (response.isOk) {
       //
       Get.back();
-      getAllArbitre();
+      getAllAgents();
       Get.snackbar("Succès", "L'enregistrement a abouti",
           backgroundColor: Colors.green);
     } else {
       //
       Get.back();
-      getAllArbitre();
+      getAllAgents();
       Get.snackbar("Oups erreur",
           "L'enregistrement n'a pas abouti code: ${response.statusCode}");
     }
   }
 
   //
-  Future<String> saveCommissaire2(Map equipe) async {
+  Future<String> saveStade2(Map equipe) async {
     //
-    Response response = await requete.postE("arbitre", equipe);
+    Response response = await requete.postE("agent", equipe);
     //
     if (response.isOk) {
       //
       Get.back();
-      getAllArbitre();
-      return "cool";
+      getAllAgents();
+      // Get.snackbar("Succès", "L'enregistrement a abouti",
+      //     backgroundColor: Colors.green);
+      return "Cool";
     } else {
       //
       Get.back();
-      getAllArbitre();
+      getAllAgents();
+      // Get.snackbar("Oups erreur",
+      //     "L'enregistrement n'a pas abouti code: ${response.statusCode}");
       return "Pas cool";
     }
   }

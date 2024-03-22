@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:window_manager/window_manager.dart';
 import 'pages/accueil.dart';
+import 'pages/agents/agents_controller.dart';
 import 'pages/arbitres/arbitre_controller.dart';
 import 'pages/calendrier/calendrier_controller.dart';
 import 'pages/calendrier/matchs/journee_controller.dart';
@@ -18,6 +19,7 @@ import 'pages/rapports/commissaire/commissaire_controller.dart';
 import 'pages/rapports/officier/officier_controller.dart';
 import 'pages/rapports/rapport_controller.dart';
 import 'pages/splash.dart';
+import 'pages/stade/stade_controller.dart';
 import 'utils/test_tab.dart';
 
 List entiteAdmin = [];
@@ -47,6 +49,10 @@ void main() async {
   OfficierController2 officierController2 = Get.put(OfficierController2());
   //
   RapportController rapportController = Get.put(RapportController());
+  //
+  StadeController stadeController = Get.put(StadeController());
+  //
+  AgentsController agentsController = Get.put(AgentsController());
   //
   //pourcent(10);
   //

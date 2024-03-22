@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:linafoot_admin/utils/Loader.dart';
@@ -5,9 +8,12 @@ import 'package:linafoot_admin/utils/requete.dart';
 
 import 'calendrier_controller.dart';
 import 'details_calendrier.dart';
+import 'matchs/match_controller.dart';
 import 'nouveau_calendrier.dart';
 
 class Calendrier extends GetView<CalendrierController> {
+  //
+  MatchController matchController = Get.find();
   //
   Calendrier() {
     //
@@ -56,6 +62,125 @@ class Calendrier extends GetView<CalendrierController> {
         padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
         width: 500,
         child: Scaffold(
+          appBar: AppBar(
+              // actions: [
+              //   IconButton(
+              //     onPressed: () async {
+              //       //
+              //       //
+              //       //
+              //       FilePickerResult? result =
+              //           await FilePicker.platform.pickFiles(
+              //         dialogTitle: "Fichier CSV de la commande",
+              //         type: FileType.custom,
+              //         allowedExtensions: ["CSV", "csv"],
+              //       );
+              //       //
+              //       if (result != null) {
+              //         //fl = result;
+              //         File file = File(result.files.single.path!);
+              //         // rowsAsListOfValues = await file
+              //         //     .openRead()
+              //         //     .transform(utf8.decoder)
+              //         //     .transform(CsvToListConverter())
+              //         //     .toList();
+              //         //
+              //         //filename.value = result.names[0]!;
+              //         //
+              //         //print('fields: $rowsAsListOfValues');
+              //         //
+              //         List<String> l = file.readAsLinesSync(); //.split("\n");
+              //         l.removeAt(0);
+              //         //
+              //         List lx = [];
+              //         //
+              //         l.forEach((ee) {
+              //           List x = ee.split(";");
+              //           // es.forEach((x) {
+              //           //   //
+              //           // });
+              //           //
+              //           /*public Long idEquipe;
+              //   public byte[] photo;
+              //   public boolean asPhoto;
+              //   public String nom;
+              //   public String postnom;
+              //   public String prenom;
+              //   public String dateNaissance;
+              //   public String licence;
+              //   public String numero; joueurequipe
+              //                       */
+              //           print('es:::: -- $x --');
+              //           print(
+              //               "es:::: -- ${x[0]} -- ${x[1]} -- ${x[2]} -- ${x[3]} -- ${x[4]} -- ${x[5]} -- ${x[6]} -- ${x[7]} -- ${x[8]} --journee: ${x[9]} -- ");
+              //           List d = "${x[5]}".split("/");
+              //           Map e = {
+              //             "idCalendrier": 1,
+              //             "idEquipeA": "${x[0]}",
+              //             "nomEquipeA": "${x[1]}",
+              //             "idEquipeB": "${x[3]}",
+              //             "nomEquipeB": "${x[4]}",
+              //             "stade": "${x[7]}",
+              //             "terrainNeutre": "",
+              //             "quiRecoit": "",
+              //             "saison": "",
+              //             "categorie": "playoff",
+              //             "journee": "${x[9]}",
+              //             "date": "${d[0]}-${d[1]}-${d[2]}",
+              //             "heure": "${x[6]}",
+              //             "commissaire": matchController.commissaire['id'],
+              //             //"mdpCommissaire": mdpGenerer(),
+              //             "arbitreCentrale":
+              //                 matchController.arbitreCentrale['id'],
+              //             //"mdpArbitreCentrale": mdpGenerer(),
+              //             "arbitreAssitant1":
+              //                 matchController.arbitreAssitant1['id'],
+              //             "arbitreAssitant2":
+              //                 matchController.arbitreAssitant2['id'],
+              //             //""
+              //             "arbitreProtocolaire":
+              //                 matchController.arbitreProtocolaire['id'],
+              //             //"mdpOfficier": mdpGenerer(),
+              //             //"nombreDePlaces": place.value,
+              //             "nombreDePlacesPourtour": "${x[10]}",
+              //             "nombreDePlacesTribuneCentrale": "${x[16]}",
+              //             "nombreDePlacesTribuneHonneur": "${x[14]}",
+              //             "nombreDePlacesTribuneLateralle": "${x[12]}",
+              //             "vip": "${x[18]}",
+              //             //
+              //             "prixPourtour": "${x[11]}",
+              //             "prixTribuneCentrale": "${x[17]}",
+              //             "prixTribuneHonneur": "${x[15]}",
+              //             "prixTribuneLateralle": "${x[13]}",
+              //             "prixVIP": "${x[19]}"
+              //           };
+              //           //
+              //           //load(e);
+              //           //Future.delayed(const Duration(seconds: 1), () {});
+              //           lx.add(e);
+              //           print("_");
+              //           //rowsAsListOfValues.add(es);
+              //           //
+              //         });
+              //         //saveall
+              //         //equipeController.saveEquipe2(lx);
+              //         //
+              //         String rep = await matchController.saveMatch3(lx);
+              //         print(rep);
+              //         //rowsAsListOfValues.value = const CsvToListConverter().convert(data);
+              //         //
+              //         // print("dataa: ${l.length}");
+              //         // print("data: ${rowsAsListOfValues.length}");
+              //         // //
+              //         // final input = File(fichier).openRead();
+              //       } else {
+              //         // User canceled the picker
+              //       }
+              //     },
+              //     icon: Icon(Icons.add),
+              //   ),
+              // ],
+              ),
           body: controller.obx(
             (state) {
               RxList equipes = RxList(state as List);
@@ -84,6 +209,7 @@ class Calendrier extends GetView<CalendrierController> {
                         children: List.generate(equipes.length, (index) {
                           //
                           Map equipe = equipes[index];
+                          print(equipe);
                           //
                           if ("${equipe['label']}".contains(mot.value) ||
                               "${equipe['saison']}".contains(mot.value)) {
@@ -139,5 +265,10 @@ class Calendrier extends GetView<CalendrierController> {
         ),
       ),
     );
+  }
+
+  load(Map e) async {
+    String rep = await matchController.saveMatch2(e);
+    print(rep);
   }
 }

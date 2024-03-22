@@ -103,7 +103,7 @@ class Journee extends GetView<JourneeController> {
                                                     height: 10,
                                                   ),
                                                   Text(
-                                                    "${match['nomEquipeB']}",
+                                                    "${match['nomEquipeA']}",
                                                     textAlign: TextAlign.center,
                                                     style: const TextStyle(
                                                       fontSize: 13,
@@ -226,67 +226,117 @@ class Journee extends GetView<JourneeController> {
                                   ),
                                   Expanded(
                                     flex: 3,
-                                    child: InkWell(
-                                      onTap: () {
-                                        //
-                                        Get.dialog(
-                                          Center(
-                                            child: Card(
-                                              elevation: 1,
-                                              child: Container(
-                                                height: 100,
-                                                width: 200,
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    const Align(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child: Text(
-                                                        "Voulez-vous vraiment supprimer ce match",
-                                                        textAlign:
-                                                            TextAlign.center,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Expanded(
+                                          flex: 4,
+                                          child: InkWell(
+                                            onTap: () {
+                                              //
+                                              Get.dialog(
+                                                Center(
+                                                  child: Card(
+                                                    elevation: 1,
+                                                    child: Container(
+                                                      height: 100,
+                                                      width: 200,
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          const Align(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            child: Text(
+                                                              "Voulez-vous vraiment supprimer ce match",
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          ElevatedButton(
+                                                            onPressed: () {
+                                                              //
+                                                              Get.back();
+                                                              Loader.loading();
+                                                              //
+                                                              controller.supprimerMatch(
+                                                                  idCalendrier,
+                                                                  categorie,
+                                                                  "$jr",
+                                                                  "${match['id']}");
+                                                            },
+                                                            child: Text(
+                                                                "Supprimer"),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
-                                                    const SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    ElevatedButton(
-                                                      onPressed: () {
-                                                        //
-                                                        Get.back();
-                                                        Loader.loading();
-                                                        //
-                                                        controller.supprimerMatch(
-                                                            idCalendrier,
-                                                            categorie,
-                                                            "$jr",
-                                                            "${match['id']}");
-                                                      },
-                                                      child: Text("Supprimer"),
-                                                    ),
-                                                  ],
+                                                  ),
                                                 ),
+                                              );
+                                            },
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text("Supprimer"),
+                                                  Icon(
+                                                    Icons.delete,
+                                                    color: Colors.red.shade900,
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ),
-                                        );
-                                      },
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text("Supprimer"),
-                                            Icon(
-                                              Icons.delete,
-                                              color: Colors.red.shade900,
-                                            ),
-                                          ],
                                         ),
-                                      ),
+                                        Expanded(
+                                          flex: 4,
+                                          child: InkWell(
+                                            onTap: () async {
+                                              //afficher
+                                              match['afficher'] =
+                                                  !match['afficher'];
+                                              controller.updateAffiche(
+                                                  match,
+                                                  idCalendrier,
+                                                  categorie,
+                                                  "$jr");
+                                            },
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  !match['afficher']
+                                                      ? Text("afficher")
+                                                      : Text("Retirer"),
+                                                  !match['afficher']
+                                                      ? Icon(
+                                                          Icons.check_circle,
+                                                          color: Colors
+                                                              .green.shade900,
+                                                        )
+                                                      : Icon(
+                                                          Icons.remove_circle,
+                                                          color: Colors
+                                                              .red.shade900,
+                                                        ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
                                     ),
                                   ),
                                 ],

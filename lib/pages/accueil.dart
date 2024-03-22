@@ -1,33 +1,25 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:linafoot_admin/pages/programme/programme.dart';
 import 'package:linafoot_admin/pages/rapports/rapport.dart';
 import 'package:linafoot_admin/utils/langi.dart';
-
+import 'agents/agents.dart';
 import 'arbitres/arbitres.dart';
 import 'calendrier/calendrier.dart';
 import 'commissaires/commissaires.dart';
 import 'equipes/equipes.dart';
+import 'stade/stade.dart';
 
 class Accueil extends StatefulWidget {
-  const Accueil({super.key});
-
   @override
-  State<Accueil> createState() => _Accueil();
+  State<StatefulWidget> createState() {
+    //
+    return _Accueil();
+  }
+  //
 }
 
-class _Accueil extends State<Accueil> with TickerProviderStateMixin {
-  late final TabController _tabController;
-  //
-  //
-
-  //
-
-  //
-  //
+class _Accueil extends State<Accueil> {
   // HoraireController horaireController = Get.put(HoraireController());
   // //
   // InfosController infosController = Get.put(InfosController());
@@ -44,17 +36,17 @@ class _Accueil extends State<Accueil> with TickerProviderStateMixin {
     {"titre": "Equipes", "icon": "IcBaselineSportsSoccer"},
     {"titre": "Commissaire", "icon": "GalaPortrait1"},
     {"titre": "Arbitre", "icon": "IonPeople"},
-    {"titre": "Live", "icon": "IconParkSolidPlay"},
+    //{"titre": "Live", "icon": "IconParkSolidPlay"},
     //{"titre": "Programme", "icon": "PhCalendarCheckFill"},
     {"titre": "Calendrier", "icon": "HeroiconsCalendarDaysSolid"},
-    {"titre": "Annonces", "icon": "SolarLightbulbMinimalisticBold"},
+    //{"titre": "Annonces", "icon": "SolarLightbulbMinimalisticBold"},
 
     {"titre": "Rapport", "icon": "GalaEditor"},
-    {"titre": "Stats", "icon": "GalaChart"},
+    //{"titre": "Stats", "icon": "GalaChart"},
 
-    {"titre": "A propos", "icon": "F7Sportscourt"},
-    {"titre": "Parametres", "icon": "SolarSettingsMinimalisticBold"},
-    // {"titre": "Etat", "icon": "BasilBookOpenSolid"},
+    {"titre": "Agents", "icon": "IonPeople"},
+    //{"titre": "Parametres", "icon": "SolarSettingsMinimalisticBold"},
+    {"titre": "Stades", "icon": "F7Sportscourt"},
     // {"titre": "Clients & Fournisseurs", "icon": "F7Sportscourt"},
     // {"titre": "Programme", "icon": "SolarSettingsMinimalisticBold"},
   ];
@@ -62,12 +54,12 @@ class _Accueil extends State<Accueil> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    //_tabController = TabController(length: 4, vsync: this);
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
+    //_tabController.dispose();
     super.dispose();
   }
 
@@ -97,21 +89,24 @@ class _Accueil extends State<Accueil> with TickerProviderStateMixin {
                     } else if (choix.value == 2) {
                       vue.value = Arbitres();
                     } else if (choix.value == 3) {
-                      vue.value = Container();
-                    } else if (choix.value == 4) {
                       vue.value = Calendrier();
-                    } else if (choix.value == 5) {
-                      vue.value = Container();
-                    } else if (choix.value == 6) {
+                    } else if (choix.value == 4) {
                       vue.value = Rapports();
-                    } else if (choix.value == 7) {
-                      vue.value = Container();
-                    } else if (choix.value == 8) {
+                      // } else if (choix.value == 5) {
+                      //   vue.value = Container();
+                      // } else if (choix.value == 6) {
+                      //   vue.value = Rapports();
+                      // } else if (choix.value == 7) {
+                      //   vue.value = Container();
+                      // } else if (choix.value == 8) {
                       //Changementelse if (choix.value == 5) {
-                      vue.value = Container();
+                    } else if (choix.value == 5) {
+                      vue.value = Agents();
+                      //Changementelse if (choix.value == 5) {
+                      //vue.value = State();
                     } else {
                       //
-                      vue.value = Container();
+                      vue.value = Stade();
                     }
                   },
                   child: Obx(

@@ -3,9 +3,11 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:linafoot_admin/pages/equipes/equipe_controller.dart';
+import 'package:linafoot_admin/pages/stade/stade_controller.dart';
 import 'package:linafoot_admin/utils/Loader.dart';
 import 'package:linafoot_admin/utils/liste_arbitre.dart';
 import 'package:linafoot_admin/utils/liste_commissaire.dart';
@@ -18,29 +20,42 @@ class NouveauMatch extends StatelessWidget {
   //
   NouveauMatch(this.idCalendrier, this.categorie, this.journee);
   //
+  StadeController stadeController = Get.find();
+  //
   String idCalendrier;
   int journee;
   String categorie;
   //
   MatchController matchController = Get.find();
+  /**
+   * 
+  KINSHASA ;KINSHASA;TATA RAPHAEL ;36200;7800;250;750;0;45000;14;;
+NORD-KIVU ;GOMA ;STADE DE L'UNITE ;10000;0;0;200;0;10200;7;;
+KINDU ;MANIEMA;JOSEPH KABILA ;22000;800;400;0;0;23200;7;;
+KATANGA ;L'SHI ;KIBASA MALIBA ;20000;5000;2000;300;200;27300;6;;
+KATANGA ;L'SHI ;KAMALONDO ;6500;2000;3000;6000;500;17500;20;;
+   */
   //
-  RxList stades = [
-    {"nom": "Tata Raphaël", "province": "Kinshasa", "categorie": "A2"},
-    {"nom": "Kindu Joseph Kabila", "province": "Kundi", "categorie": "A2"},
-    {
-      "nom": "Kibasa Maliba (L'shi)",
-      "province": "Lubumbashi",
-      "categorie": "A3"
-    },
-    {"nom": "Goma : Stade de L'unité", "province": "Goma", "categorie": "A2"},
-    {
-      "nom": "L'shi : KAMALONDO (T P Mazembe)",
-      "province": "Lubumbashi",
-      "categorie": "A1"
-    },
-  ].obs;
-  //
+  // RxList stades = [
+  //   {"nom": "Tata Raphaël", "province": "Kinshasa", "categorie": "A2"},
+  //   {"nom": "Kindu Joseph Kabila", "province": "Kundi", "categorie": "A2"},
+  //   {
+  //     "nom": "Kibasa Maliba (L'shi)",
+  //     "province": "Lubumbashi",
+  //     "categorie": "A3"
+  //   },
+  //   {"nom": "Goma : Stade de L'unité", "province": "Goma", "categorie": "A2"},
+  //   {
+  //     "nom": "L'shi : KAMALONDO (T P Mazembe)",
+  //     "province": "Lubumbashi",
+  //     "categorie": "A1"
+  //   },
+  // ].obs;
+  // //
+
   RxInt stade = 1.obs;
+  //
+  String nomStade = "";
   //
   TextEditingController place = TextEditingController();
   //
@@ -48,6 +63,7 @@ class NouveauMatch extends StatelessWidget {
   TextEditingController nombreDePlacesTribuneLateralle =
       TextEditingController();
   TextEditingController nombreDePlacesTribuneHonneur = TextEditingController();
+  TextEditingController vip = TextEditingController();
   TextEditingController nombreDePlacesTribuneCentrale = TextEditingController();
   //
   TextEditingController prixPourtour = TextEditingController();
@@ -232,22 +248,72 @@ class NouveauMatch extends StatelessWidget {
                     color: Colors.grey.shade600,
                   ),
                 ),
-                child: Obx(
-                  () => DropdownButtonHideUnderline(
-                    child: DropdownButton(
-                      onChanged: (e) {
-                        stade.value = e as int;
-                      },
-                      value: stade.value,
-                      items: List.generate(stades.length, (index) {
-                        //
-                        return DropdownMenuItem(
-                          value: index + 1,
-                          child: Text(stades[index]['nom']),
-                        );
-                      }),
-                    ),
-                  ),
+                child: FutureBuilder(
+                  future: stadeController.getAllStades2(),
+                  builder: (context, t) {
+                    //controller.getAllStades();
+
+                    if (t.hasData) {
+                      //
+                      List stades = t.data as List;
+                      //
+                      return DropdownButtonHideUnderline(
+                        child: DropdownButton(
+                          onChanged: (e) {
+                            stade.value = e as int;
+                            /**
+                              public String region;
+    public String ville;
+
+    public String nom;
+    public int nombrePlacePourtoure;
+    public int nombrePlaceTribuneLateralle;
+    public int nombrePlaceTribuneDhonneur;
+    public int nombrePlaceTribuneCentrale;
+    public int vip;
+    public int capaciteStade;
+                               */
+                            nomStade = "${stades[stade.value]['nom']}";
+                            place.text =
+                                "${stades[stade.value]['capaciteStade']}";
+                            //
+                            nombreDePlacesPourtour.text =
+                                "${stades[stade.value]['nombrePlacePourtoure']}";
+
+                            nombreDePlacesTribuneLateralle.text =
+                                "${stades[stade.value]['nombrePlaceTribuneLateralle']}";
+
+                            nombreDePlacesTribuneHonneur.text =
+                                "${stades[stade.value]['nombrePlaceTribuneDhonneur']}";
+
+                            nombreDePlacesTribuneCentrale.text =
+                                "${stades[stade.value]['nombrePlaceTribuneCentrale']}";
+
+                            vip.text = "${stades[stade.value]['vip']}";
+                            //
+                          },
+                          value: stade.value,
+                          items: List.generate(stades.length, (index) {
+                            //
+                            return DropdownMenuItem(
+                              value: index + 1,
+                              child: Text(stades[index]['nom']),
+                            );
+                          }),
+                        ),
+                      );
+                      //controller.getAllStades();
+                    } else if (t.hasError) {
+                      return Container();
+                    }
+                    return Center(
+                      child: Container(
+                        height: 40,
+                        alignment: Alignment.center,
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  },
                 ),
               ),
               // const SizedBox(
@@ -393,6 +459,47 @@ class NouveauMatch extends StatelessWidget {
                     ),
                     TextField(
                       controller: prixTribuneHonneur,
+                      decoration: InputDecoration(labelText: "Prix en Franc"
+                          // border: OutlineInputBorder(
+                          //   borderRadius: BorderRadius.circular(10),
+                          // ),
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "VIP",
+                  style: textStyle,
+                ),
+              ),
+              Container(
+                //height: 60,
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: Colors.grey.shade600,
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    TextField(
+                      controller: nombreDePlacesTribuneHonneur,
+                      decoration: InputDecoration(
+                          // border: OutlineInputBorder(
+                          //   borderRadius: BorderRadius.circular(10),
+                          // ),
+                          ),
+                    ),
+                    TextField(
+                      controller: vip,
                       decoration: InputDecoration(labelText: "Prix en Franc"
                           // border: OutlineInputBorder(
                           //   borderRadius: BorderRadius.circular(10),
@@ -904,7 +1011,7 @@ class NouveauMatch extends StatelessWidget {
                     "nomEquipeA": matchController.equipeA['nom'],
                     "idEquipeB": matchController.equipeB['id'],
                     "nomEquipeB": matchController.equipeA['nom'],
-                    "stade": stades[stade.value]['nom'],
+                    "stade": nomStade,
                     "terrainNeutre": "",
                     "quiRecoit": "",
                     "saison": "",
@@ -930,6 +1037,7 @@ class NouveauMatch extends StatelessWidget {
                         nombreDePlacesTribuneHonneur.text,
                     "nombreDePlacesTribuneLateralle":
                         nombreDePlacesTribuneLateralle.text,
+                    "vip": vip.text,
                     //
                     "prixPourtour": prixPourtour.text,
                     "prixTribuneCentrale": prixTribuneCentrale.text,

@@ -1,53 +1,33 @@
+import 'dart:async';
 import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:linafoot_admin/pages/equipes/equipe_controller.dart';
+import 'package:linafoot_admin/pages/agents/agents_controller.dart';
+import 'package:linafoot_admin/pages/joueurs/nouveau_joueur.dart';
+import 'package:linafoot_admin/pages/stade/stade_controller.dart';
 import 'package:linafoot_admin/utils/Loader.dart';
 import 'package:linafoot_admin/utils/requete.dart';
 
-import 'details_equipe.dart';
-import 'nouvelle_equipe.dart';
+import 'nouvelle_agents.dart';
 
-class Equipes extends GetView<EquipeController> {
+class Agents extends GetView<AgentsController> {
   //
-  Equipes() {
+  Agents() {
     //
-    controller.getAllEquipes();
+    Timer(const Duration(seconds: 1), () {
+      //
+      controller.getAllAgents();
+    });
   }
+
   //
-  /*
-  RxList equipes = [
-    {
-      "nom": "Tout puissant Mazembe Englebert",
-      "province": "Lubumbashi",
-      "categorie": ""
-    },
-    {"nom": "FC Saint-Éloi Lupopo", "province": "Lubumbashi", "categorie": ""},
-    {"nom": "FC Lubumbashi sport", "province": "Lubumbashi", "categorie": ""},
-    {"nom": "CS Don Bosco", "province": "Lubumbashi", "categorie": ""},
-    {
-      "nom": "As Maniema Union de Kindu",
-      "province": "Maniema",
-      "categorie": ""
-    },
-    {
-      "nom": "As Dauphin noir de Goma",
-      "province": "Nord Kiva",
-      "categorie": ""
-    },
-    {"nom": "As Vita club", "province": "Kinshasa", "categorie": ""},
-    // {
-    //   "nom": "Dc Motema Pembe de Kinshasa",
-    //   "province": "Kinshasa",
-    //   "categorie": ""
-    // },
-    {"nom": "LES AIGLES DU CONGO", "province": "Kinshasa", "categorie": ""},
-    //{"nom": "FC LUBUMBASHI SPORT", "province": "Mbuji-Mayi", "categorie": ""},
-  ].obs;
-  */
+  RxMap joueur_ = {}.obs;
+  //
+
+  //
   //
   RxString mot = "".obs;
 
@@ -59,19 +39,10 @@ class Equipes extends GetView<EquipeController> {
         padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
         width: 500,
         child: Scaffold(
-          appBar: AppBar(
-              // actions: [
-              //   IconButton(
-              //     onPressed: () {
-              //       //
-              //     },
-              //     icon: Icon(Icons.add),
-              //   ),
-              // ],
-              ),
+          appBar: AppBar(),
           body: controller.obx(
             (state) {
-              RxList equipes = RxList(state as List);
+              RxList joueurs = RxList(state as List);
               return Column(
                 children: [
                   Container(
@@ -94,32 +65,48 @@ class Equipes extends GetView<EquipeController> {
                     flex: 1,
                     child: Obx(
                       () => ListView(
-                        children: List.generate(equipes.length, (index) {
+                        children: List.generate(joueurs.length, (index) {
                           //
-                          Map equipe = equipes[index];
+                          Map agent = joueurs[index];
+                          print(agent);
                           //
-                          if ("${equipe['nom']}".contains(mot.value)) {
+                          if ("${agent['nom']}".contains(mot.value)) {
                             //
                             return ListTile(
-                              onTap: () {
-                                //
-                                Get.to(DetailsEquipe(equipe));
-                                //
+                              onTap: () async {
+                                await Clipboard.setData(ClipboardData(
+                                    text:
+                                        "${agent['nom']} ${agent['postnom']} ${agent['prenom']} code: ${agent['mdp']}"));
+                                // copied successfully
                               },
                               leading: Container(
                                 height: 40,
                                 width: 40,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                        "${Requete.url}/equipe/logo/${equipe['id']}"),
-                                    fit: BoxFit.contain,
-                                  ),
+                                  // image: DecorationImage(
+                                  //   image: NetworkImage(
+                                  //       "${Requete.url}/joueur/profile/${stade['id']}"),
+                                  //   fit: BoxFit.contain,
+                                  // ),
+                                ),
+                                child: SvgPicture.asset(
+                                  "assets/F7Sportscourt.svg",
+                                  colorFilter: const ColorFilter.mode(
+                                      Colors.blue, BlendMode.srcIn),
+                                  semanticsLabel: agent["nom"],
+                                  height: 30,
+                                  width: 30,
                                 ),
                               ),
-                              title: Text("${equipe['nom']}"),
-                              subtitle: Text("${equipe['province']}"),
+                              title: Text(
+                                  "${agent['nom']} ${agent['postnom']} ${agent['prenom']}"),
+                              subtitle: Text(
+                                "${agent['telephone']} \n${agent['mdp']}",
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                ),
+                              ),
                             );
                           } else {
                             return Container();
@@ -143,7 +130,7 @@ class Equipes extends GetView<EquipeController> {
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               //
-              Get.to(NouvelleEquipe());
+              Get.to(NouveauAgent());
               //
             },
             child: const Icon(Icons.add),

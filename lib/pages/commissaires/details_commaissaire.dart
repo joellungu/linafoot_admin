@@ -1,4 +1,9 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:linafoot_admin/pages/commissaires/commissaire_controller.dart';
 import 'package:linafoot_admin/pages/joueurs/joueurs.dart';
 import 'package:linafoot_admin/utils/requete.dart';
 import 'package:linafoot_admin/utils/utils.dart';
@@ -6,6 +11,8 @@ import 'package:linafoot_admin/utils/utils.dart';
 class DetailsCommissaire extends StatelessWidget {
   //
   Map commissaire;
+  //
+  CommissaireController commissaireController = Get.find();
   //
   DetailsCommissaire(this.commissaire);
   //
@@ -91,22 +98,6 @@ class DetailsCommissaire extends StatelessWidget {
                 },
                 title: Text("Téléphone 1"),
                 subtitle: Text("${commissaire['telephone']}"),
-                trailing: const Icon(
-                  Icons.edit,
-                  color: Colors.blue,
-                ),
-              ),
-              ListTile(
-                onTap: () {
-                  //
-                  var text = TextEditingController();
-                  //
-                  Utils.modifierInfo(
-                      commissaire, context, text, "telephone2", 3);
-                  //
-                },
-                title: Text("Telephone 2"),
-                subtitle: Text("${commissaire['telephone2']}"),
                 trailing: const Icon(
                   Icons.edit,
                   color: Colors.blue,

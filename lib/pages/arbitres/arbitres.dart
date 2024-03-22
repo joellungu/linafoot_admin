@@ -112,7 +112,7 @@ class Arbitres extends GetView<ArbitreController> {
                                 title: Text(
                                     "${arbitre['nom']} ${arbitre['postnom']} ${arbitre['prenom']}"),
                                 subtitle: Text(
-                                    "${arbitre['region']} ${arbitre['categorie']}"),
+                                    "${arbitre['province']} ${arbitre['categorie']}"),
                               );
                             } else {
                               return Container();

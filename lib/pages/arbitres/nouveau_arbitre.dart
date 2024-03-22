@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -72,6 +73,89 @@ class NouveauArbitre extends StatelessWidget {
       appBar: AppBar(
         title: Text("Nouvelle arbitre"),
         centerTitle: true,
+        //     actions: [
+        //       IconButton(
+        //         onPressed: () async {
+        //           //
+        //           //
+        //           //
+        //           FilePickerResult? result = await FilePicker.platform.pickFiles(
+        //             dialogTitle: "Fichier CSV de la commande",
+        //             type: FileType.custom,
+        //             allowedExtensions: ["CSV", "csv"],
+        //           );
+        //           //
+        //           if (result != null) {
+        //             //fl = result;
+        //             File file = File(result.files.single.path!);
+        //             // rowsAsListOfValues = await file
+        //             //     .openRead()
+        //             //     .transform(utf8.decoder)
+        //             //     .transform(CsvToListConverter())
+        //             //     .toList();
+        //             //
+        //             //filename.value = result.names[0]!;
+        //             //
+        //             //print('fields: $rowsAsListOfValues');
+        //             //
+        //             List<String> l = file.readAsLinesSync(); //.split("\n");
+        //             l.removeAt(0);
+        //             //
+        //             List lx = [];
+        //             //
+        //             l.forEach((e) async {
+        //               List x = e.split(";");
+        //               // es.forEach((x) {
+        //               //   //
+        //               // });
+        //               //
+        //               /*public byte[] photo;
+        // public boolean asPhoto;
+        // public String nom;
+        // public String postnom;
+        // public String prenom;
+        // public String telephone;
+        // public String email;
+        // public String adresse;
+        // public String province;
+        // public String categorie;
+        // public String mdp
+        //                         */
+        //               print("es:::: -- ${x[0]} -- ${x[1]} -- ${x[2]} -- -- ");
+        //               Map j = {
+        //                 "nom": "${x[1]}",
+        //                 "postnom": "",
+        //                 "prenom": "",
+        //                 "telephone": "",
+        //                 "email": "",
+        //                 "adresse": "",
+        //                 "province": "${x[0]}",
+        //                 "categorie": "",
+        //                 "mdp": "",
+        //               };
+        //               String rep = await arbitreController.saveCommissaire2(j);
+        //               print(rep);
+        //               //lx.add(j);
+        //               print("_");
+        //               //rowsAsListOfValues.add(es);
+        //               //
+        //             });
+        //             //saveall
+        //             //equipeController.saveEquipe2(lx);
+        //             //
+        //             //rowsAsListOfValues.value = const CsvToListConverter().convert(data);
+        //             //
+        //             // print("dataa: ${l.length}");
+        //             // print("data: ${rowsAsListOfValues.length}");
+        //             // //
+        //             // final input = File(fichier).openRead();
+        //           } else {
+        //             // User canceled the picker
+        //           }
+        //         },
+        //         icon: Icon(Icons.add),
+        //       ),
+        //     ],
       ),
       body: Center(
         child: Container(
@@ -405,14 +489,14 @@ class NouveauArbitre extends StatelessWidget {
                    */
                   //
                   Map equipe = {
-                    "nom": nom.value,
-                    "postnom": postnom.value,
-                    "prenom": prenom.value,
-                    "telephone": telephone.value,
-                    "email": email.value,
-                    "adresse": adresse.value,
+                    "nom": nom.text,
+                    "postnom": postnom.text,
+                    "prenom": prenom.text,
+                    "telephone": telephone.text,
+                    "email": email.text,
+                    "adresse": adresse.text,
                     "province": provinces[province.value],
-                    "categorie": categorie.value,
+                    "categorie": categorie.text,
                     "mdp": "1234567",
                     "asPhoto": path.value.isEmpty,
                     "photo": path.value.isEmpty

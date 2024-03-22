@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:linafoot_admin/utils/requete.dart';
 
-class JoueurController extends GetxController with StateMixin<List> {
+class StadeController extends GetxController with StateMixin<List> {
   //
   Requete requete = Requete();
   //
-  Future<void> getAllJoueurs(int id) async {
+  Future<void> getAllStades() async {
     //
     change([], status: RxStatus.loading());
     //
-    Response response = await requete.getE("joueur/All/$id");
+    Response response = await requete.getE("stade/all");
     //
     if (response.isOk) {
       print("response: ${response.statusCode}");
@@ -26,62 +26,78 @@ class JoueurController extends GetxController with StateMixin<List> {
   }
 
   //
-  Future<void> updateEquipe(Map equipe, int id) async {
+  Future<List> getAllStades2() async {
     //
-    Response response = await requete.putE("joueur", equipe);
+    Response response = await requete.getE("stade/all");
     //
     if (response.isOk) {
+      print("response: ${response.statusCode}");
+      print("response: ${response.body}");
       //
-      print("rep: ${response.body}");
-      Get.back();
-      getAllJoueurs(id);
-      Get.snackbar("Succès", "Mise à jour éffectué",
-          backgroundColor: Colors.green);
+      return response.body;
     } else {
       //
-      Get.back();
-      getAllJoueurs(id);
-      Get.snackbar("Oups erreur",
-          "Une erreur lors de la Mise à jour, code: ${response.statusCode}");
+      print("response: ${response.statusCode}");
+      print("response: ${response.body}");
+      return [];
     }
   }
 
   //
-  Future<void> saveJoueur(Map equipe, int id) async {
+  Future<void> saveStade(Map equipe) async {
     //
-    Response response = await requete.postE("joueur", equipe);
+    Response response = await requete.postE("stade", equipe);
     //
     if (response.isOk) {
       //
       Get.back();
-      getAllJoueurs(id);
+      getAllStades();
       Get.snackbar("Succès", "L'enregistrement a abouti",
           backgroundColor: Colors.green);
     } else {
       //
       Get.back();
-      getAllJoueurs(id);
+      getAllStades();
+      Get.snackbar("Oups erreur",
+          "L'enregistrement n'a pas abouti code: ${response.statusCode}");
+    }
+  }
+
+  Future<void> updateStade(Map equipe) async {
+    //
+    Response response = await requete.putE("stade", equipe);
+    //
+    if (response.isOk) {
+      //
+      Get.back();
+      getAllStades();
+      Get.snackbar("Succès", "L'enregistrement a abouti",
+          backgroundColor: Colors.green);
+    } else {
+      //
+      Get.back();
+      getAllStades();
       Get.snackbar("Oups erreur",
           "L'enregistrement n'a pas abouti code: ${response.statusCode}");
     }
   }
 
   //
-  Future<String> saveJoueur2(Map equipe, int id) async {
+  Future<String> saveStade2(Map equipe) async {
     //
-    Response response = await requete.postE("joueur", equipe);
+    Response response = await requete.postE("stade", equipe);
     //
     if (response.isOk) {
       //
       Get.back();
-      getAllJoueurs(id);
+      getAllStades();
       // Get.snackbar("Succès", "L'enregistrement a abouti",
       //     backgroundColor: Colors.green);
       return "Cool";
     } else {
       //
       Get.back();
-      getAllJoueurs(id);
+      getAllStades();
       // Get.snackbar("Oups erreur",
       //     "L'enregistrement n'a pas abouti code: ${response.statusCode}");
       return "Pas cool";

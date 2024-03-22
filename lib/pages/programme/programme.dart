@@ -824,7 +824,6 @@ class Programme extends GetView<ProgrammeController> {
                                 //   child: Column(
                                 //     mainAxisAlignment: MainAxisAlignment.center,
                                 //     children: List.generate(rs.length, (i) {
-
                                 //     }),
                                 //   ),
                                 // );

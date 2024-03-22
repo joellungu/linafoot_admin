@@ -109,6 +109,60 @@ class MatchController extends GetxController with StateMixin<List> {
   }
 
   //
+  Future<String> saveMatch2(Map equipe) async {
+    //
+
+    //
+    Response response = await requete.postE("match", equipe);
+    //
+    if (response.isOk) {
+      //
+      //Get.back();
+      print("A______________________________");
+      print("equipe: ${response.statusCode}");
+      print("equipe: ${response.body}");
+      print("A______________________________");
+      return "Cool";
+    } else {
+      //
+      //Get.back();
+      print("B______________________________");
+      print("equipe: ${response.statusCode}");
+      print("equipe: ${response.body}");
+      print("B______________________________");
+      //getAllJourneeDeLaSaison(id);
+      return "Pas cool";
+    }
+  }
+
+  //
+  Future<String> saveMatch3(List equipes) async {
+    //
+
+    //
+    Response response = await requete.postE("match/all", equipes);
+    //
+    if (response.isOk) {
+      //
+      //Get.back();
+      print("A______________________________");
+      print("equipe: ${response.statusCode}");
+      print("equipe: ${response.body}");
+      print("A______________________________");
+      return "Cool";
+    } else {
+      //
+      //Get.back();
+      print("B______________________________");
+      print("equipe: ${response.statusCode}");
+      print("equipe: ${response.body}");
+      print("B______________________________");
+      //getAllJourneeDeLaSaison(id);
+      return "Pas cool";
+    }
+  }
+
+  //
   Future<Map> getOneArbitre(String id) async {
     //
     //

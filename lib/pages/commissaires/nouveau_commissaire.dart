@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:linafoot_admin/utils/Loader.dart';
@@ -12,16 +14,15 @@ class NouveauCommissaire extends StatelessWidget {
   //
   RxString path = "".obs;
   //
-  RxString nom = "".obs;
-  RxString postnom = "".obs;
-  RxString prenom = "".obs;
-  RxString telephone = "".obs;
-  RxString telephone2 = "".obs;
-  RxString email = "".obs;
-  RxString adresse = "".obs;
-  RxString region = "".obs;
-  RxString categorie = "".obs;
-  RxString mdp = "".obs;
+  TextEditingController nom = TextEditingController();
+  TextEditingController postnom = TextEditingController();
+  TextEditingController prenom = TextEditingController();
+  TextEditingController telephone = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController adresse = TextEditingController();
+  TextEditingController region = TextEditingController();
+  TextEditingController categorie = TextEditingController();
+  TextEditingController mdp = TextEditingController();
   //
   RxString province = "".obs;
   RxString dateCreation = "".obs;
@@ -43,6 +44,88 @@ class NouveauCommissaire extends StatelessWidget {
       appBar: AppBar(
         title: Text("Nouveau commissaire"),
         centerTitle: true,
+        //     actions: [
+        //       IconButton(
+        //         onPressed: () async {
+        //           //
+        //           //
+        //           //
+        //           FilePickerResult? result = await FilePicker.platform.pickFiles(
+        //             dialogTitle: "Fichier CSV de la commande",
+        //             type: FileType.custom,
+        //             allowedExtensions: ["CSV", "csv"],
+        //           );
+        //           //
+        //           if (result != null) {
+        //             //fl = result;
+        //             File file = File(result.files.single.path!);
+        //             // rowsAsListOfValues = await file
+        //             //     .openRead()
+        //             //     .transform(utf8.decoder)
+        //             //     .transform(CsvToListConverter())
+        //             //     .toList();
+        //             //
+        //             //filename.value = result.names[0]!;
+        //             //
+        //             //print('fields: $rowsAsListOfValues');
+        //             //
+        //             List<String> l = file.readAsLinesSync(); //.split("\n");
+        //             l.removeAt(0);
+        //             //
+        //             List lx = [];
+        //             //
+        //             l.forEach((e) async {
+        //               List x = e.split(";");
+        //               // es.forEach((x) {
+        //               //   //
+        //               // });
+        //               //
+        //               /*
+        // public String nom;
+        // public String postnom;
+        // public String prenom;
+        // public String telephone;
+        // public String email;
+        // public String adresse;
+        // public String region;
+        // public String categorie;
+        // public String mdp;
+        //                     */
+        //               print("es:::: -- ${x[0]} -- ${x[1]} -- ${x[2]} -- -- ");
+        //               Map j = {
+        //                 "nom": "${x[1]}",
+        //                 "postnom": "",
+        //                 "prenom": "",
+        //                 "telephone": "",
+        //                 "email": "",
+        //                 "adresse": "",
+        //                 "region": "${x[0]}",
+        //                 "categorie": "",
+        //                 "mdp": "",
+        //               };
+        //               String rep = await commissaireController.saveCommissaire2(j);
+        //               print(rep);
+        //               //lx.add(j);
+        //               print("_");
+        //               //rowsAsListOfValues.add(es);
+        //               //
+        //             });
+        //             //saveall
+        //             //equipeController.saveEquipe2(lx);
+        //             //
+        //             //rowsAsListOfValues.value = const CsvToListConverter().convert(data);
+        //             //
+        //             // print("dataa: ${l.length}");
+        //             // print("data: ${rowsAsListOfValues.length}");
+        //             // //
+        //             // final input = File(fichier).openRead();
+        //           } else {
+        //             // User canceled the picker
+        //           }
+        //         },
+        //         icon: Icon(Icons.add),
+        //       ),
+        //     ],
       ),
       body: Center(
         child: Container(
@@ -151,10 +234,11 @@ class NouveauCommissaire extends StatelessWidget {
                 //   ),
                 // ),
                 child: TextField(
-                  onChanged: (t) {
-                    //
-                    nom.value = t;
-                  },
+                  controller: nom,
+                  // onChanged: (t) {
+                  //   //
+                  //   nom.value = t;
+                  // },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -181,10 +265,11 @@ class NouveauCommissaire extends StatelessWidget {
                 //   ),
                 // ),
                 child: TextField(
-                  onChanged: (t) {
-                    //
-                    postnom.value = t;
-                  },
+                  controller: postnom,
+                  // onChanged: (t) {
+                  //   //
+                  //   postnom.value = t;
+                  // },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -211,10 +296,11 @@ class NouveauCommissaire extends StatelessWidget {
                 //   ),
                 // ),
                 child: TextField(
-                  onChanged: (t) {
-                    //
-                    prenom.value = t;
-                  },
+                  controller: prenom,
+                  // onChanged: (t) {
+                  //   //
+                  //   prenom.value = t;
+                  // },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -241,10 +327,11 @@ class NouveauCommissaire extends StatelessWidget {
                 //   ),
                 // ),
                 child: TextField(
-                  onChanged: (t) {
-                    //
-                    telephone.value = t;
-                  },
+                  controller: telephone,
+                  // onChanged: (t) {
+                  //   //
+                  //   telephone.value = t;
+                  // },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -252,36 +339,7 @@ class NouveauCommissaire extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Telephone 2",
-                  style: textStyle,
-                ),
-              ),
-              SizedBox(
-                height: 55,
-                // decoration: BoxDecoration(
-                //   borderRadius: BorderRadius.circular(10),
-                //   border: Border.all(
-                //     color: Colors.grey.shade600,
-                //   ),
-                // ),
-                child: TextField(
-                  onChanged: (t) {
-                    //
-                    telephone2.value = t;
-                  },
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              ),
+
               const SizedBox(
                 height: 10,
               ),
@@ -301,10 +359,11 @@ class NouveauCommissaire extends StatelessWidget {
                 //   ),
                 // ),
                 child: TextField(
-                  onChanged: (t) {
-                    //
-                    email.value = t;
-                  },
+                  controller: email,
+                  // onChanged: (t) {
+                  //   //
+                  //   email.value = t;
+                  // },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -331,10 +390,11 @@ class NouveauCommissaire extends StatelessWidget {
                 //   ),
                 // ),
                 child: TextField(
-                  onChanged: (t) {
-                    //
-                    adresse.value = t;
-                  },
+                  controller: adresse,
+                  // onChanged: (t) {
+                  //   //
+                  //   adresse.value = t;
+                  // },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -361,10 +421,11 @@ class NouveauCommissaire extends StatelessWidget {
                 //   ),
                 // ),
                 child: TextField(
-                  onChanged: (t) {
-                    //
-                    region.value = t;
-                  },
+                  controller: region,
+                  // onChanged: (t) {
+                  //   //
+                  //   region.value = t;
+                  // },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -391,10 +452,11 @@ class NouveauCommissaire extends StatelessWidget {
                 //   ),
                 // ),
                 child: TextField(
-                  onChanged: (t) {
-                    //
-                    categorie.value = t;
-                  },
+                  controller: categorie,
+                  // onChanged: (t) {
+                  //   //
+                  //   categorie.value = t;
+                  // },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -429,15 +491,14 @@ class NouveauCommissaire extends StatelessWidget {
                    */
                   //
                   Map equipe = {
-                    "nom": nom.value,
-                    "postnom": postnom.value,
-                    "prenom": prenom.value,
-                    "telephone": telephone.value,
-                    "telephone2": telephone2.value,
-                    "email": email.value,
-                    "adresse": adresse.value,
-                    "region": region.value,
-                    "categorie": categorie.value,
+                    "nom": nom.text,
+                    "postnom": postnom.text,
+                    "prenom": prenom.text,
+                    "telephone": telephone.text,
+                    "email": email.text,
+                    "adresse": adresse.text,
+                    "region": region.text,
+                    "categorie": categorie.text,
                     "mdp": "1234567",
                     "asPhoto": path.value.isEmpty,
                     "photo": File(path.value).readAsBytesSync(),

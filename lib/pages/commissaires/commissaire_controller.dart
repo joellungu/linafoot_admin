@@ -83,4 +83,22 @@ class CommissaireController extends GetxController with StateMixin<List> {
           "L'enregistrement n'a pas abouti code: ${response.statusCode}");
     }
   }
+
+  //
+  Future<String> saveCommissaire2(Map equipe) async {
+    //
+    Response response = await requete.postE("commissaire", equipe);
+    //
+    if (response.isOk) {
+      //
+      Get.back();
+      getAllCommissaire();
+      return "Cool";
+    } else {
+      //
+      Get.back();
+      getAllCommissaire();
+      return "Pas cool";
+    }
+  }
 }
