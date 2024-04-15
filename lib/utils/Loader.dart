@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class Loader {
   static loading() {
@@ -14,6 +15,8 @@ class Loader {
       ),
     );
   }
+
+  static var backgroundColor = HexColor("#DD0707");
 
   static Widget loadingW() {
     return Center(

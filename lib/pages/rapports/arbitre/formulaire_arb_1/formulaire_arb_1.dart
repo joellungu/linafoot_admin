@@ -698,7 +698,7 @@ class FormulaireArb1 extends StatelessWidget {
                       Obx(
                         () => Text(
                           "${arbitreController.scoreFin['a'] ?? '0'}",
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.blue,
                             fontSize: 20,

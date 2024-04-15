@@ -215,7 +215,7 @@ class RapportController extends GetxController with StateMixin<List> {
     //
     if (response.isOk) {
       print("response mt: ${response.statusCode}");
-      print("response mt: ${response.body}");
+      print("response mt: ${response.bodyString}");
       // change(response.body, status: RxStatus.success());
       //return response.body;
       Get.back();

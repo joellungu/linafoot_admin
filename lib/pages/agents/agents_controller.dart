@@ -44,6 +44,25 @@ class AgentsController extends GetxController with StateMixin<List> {
   }
 
   //
+  Future<int> getCalendrier() async {
+    //
+    Response response = await requete.getE("calendrier/actuel");
+    //
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("response: ${response.statusCode}");
+      print("response: ${response.body}");
+      // change(response.body, status: RxStatus.success());
+      return response.body;
+    } else {
+      //
+      print("response: ${response.statusCode}");
+      print("response: ${response.body}");
+      // change([], status: RxStatus.empty());
+      return 0;
+    }
+  }
+
+  //
   Future<void> saveAgent(Map equipe) async {
     //
     Response response = await requete.postE("agent", equipe);
@@ -82,6 +101,45 @@ class AgentsController extends GetxController with StateMixin<List> {
       // Get.snackbar("Oups erreur",
       //     "L'enregistrement n'a pas abouti code: ${response.statusCode}");
       return "Pas cool";
+    }
+  }
+
+  //
+  Future<List> getAllJourneeDeLaSaison2(String idCalendrier) async {
+    //
+    Response response = await requete.getE("match/all/$idCalendrier");
+    //
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("response mt: ${response.statusCode}");
+      print("response mt: ${response.body}");
+      // change(response.body, status: RxStatus.success());
+      return response.body;
+    } else {
+      //
+      print("response mt: ${response.statusCode}");
+      print("response mt: ${response.body}");
+      // change([], status: RxStatus.empty());
+      return [];
+    }
+  }
+
+  //
+  Future<List> getAllBilletVendus(String idMatch, String idAgent) async {
+    //
+    Response response = await requete
+        .getE("billet/billetvendus?idMatch=$idMatch&idAgent=$idAgent");
+    //
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("response mt: ${response.statusCode}");
+      print("response mt: ${response.body}");
+      // change(response.body, status: RxStatus.success());
+      return response.body;
+    } else {
+      //
+      print("response mt: ${response.statusCode}");
+      print("response mt: ${response.body}");
+      // change([], status: RxStatus.empty());
+      return [];
     }
   }
 }

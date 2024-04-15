@@ -53,7 +53,7 @@ KATANGA ;L'SHI ;KAMALONDO ;6500;2000;3000;6000;500;17500;20;;
   // ].obs;
   // //
 
-  RxInt stade = 1.obs;
+  RxInt stade = 0.obs;
   //
   String nomStade = "";
   //
@@ -296,7 +296,7 @@ KATANGA ;L'SHI ;KAMALONDO ;6500;2000;3000;6000;500;17500;20;;
                           items: List.generate(stades.length, (index) {
                             //
                             return DropdownMenuItem(
-                              value: index + 1,
+                              value: index,
                               child: Text(stades[index]['nom']),
                             );
                           }),
@@ -1010,7 +1010,7 @@ KATANGA ;L'SHI ;KAMALONDO ;6500;2000;3000;6000;500;17500;20;;
                     "idEquipeA": matchController.equipeA['id'],
                     "nomEquipeA": matchController.equipeA['nom'],
                     "idEquipeB": matchController.equipeB['id'],
-                    "nomEquipeB": matchController.equipeA['nom'],
+                    "nomEquipeB": matchController.equipeB['nom'],
                     "stade": nomStade,
                     "terrainNeutre": "",
                     "quiRecoit": "",

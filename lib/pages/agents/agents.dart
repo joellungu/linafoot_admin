@@ -11,6 +11,7 @@ import 'package:linafoot_admin/pages/stade/stade_controller.dart';
 import 'package:linafoot_admin/utils/Loader.dart';
 import 'package:linafoot_admin/utils/requete.dart';
 
+import 'agent_match.dart';
 import 'nouvelle_agents.dart';
 
 class Agents extends GetView<AgentsController> {
@@ -78,6 +79,18 @@ class Agents extends GetView<AgentsController> {
                                     text:
                                         "${agent['nom']} ${agent['postnom']} ${agent['prenom']} code: ${agent['mdp']}"));
                                 // copied successfully
+                                Get.dialog(
+                                  Material(
+                                    child: Center(
+                                      child: Container(
+                                        width: 500,
+                                        child: AgentMatch("${agent['id']}"),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                                //
+                                //
                               },
                               leading: Container(
                                 height: 40,
@@ -106,6 +119,12 @@ class Agents extends GetView<AgentsController> {
                                 style: TextStyle(
                                   color: Colors.blue,
                                 ),
+                              ),
+                              trailing: IconButton(
+                                onPressed: () {
+                                  //
+                                },
+                                icon: Icon(Icons.edit),
                               ),
                             );
                           } else {
